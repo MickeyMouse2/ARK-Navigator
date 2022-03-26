@@ -1,7 +1,7 @@
 package space.taran.arknavigator.mvp.model.repo.preview
 
 import android.util.Log
-import space.taran.arknavigator.mvp.model.repo.extra.ImageMetaExtra
+import space.taran.arknavigator.mvp.model.repo.kind.ImageKindFactory
 import space.taran.arknavigator.mvp.model.repo.index.ResourceId
 import space.taran.arknavigator.mvp.model.repo.index.ResourceMeta
 import space.taran.arknavigator.ui.App
@@ -43,7 +43,7 @@ data class PreviewAndThumbnail(val preview: Path, val thumbnail: Path) {
                 return null
             }
 
-            if (ImageMetaExtra.ACCEPTED_EXTENSIONS.contains(extension(path))) {
+            if (ImageKindFactory.acceptedExtensions.contains(extension(path))) {
                 return PreviewAndThumbnail(
                     preview = path, // using the resource itself as its preview
                     thumbnail = thumbnail
@@ -93,7 +93,7 @@ data class PreviewAndThumbnail(val preview: Path, val thumbnail: Path) {
                 return true
             }
 
-            if (ImageMetaExtra.isImage(path)) {
+            if (ImageKindFactory.isImage(path)) {
                 return Files.exists(thumbnailPath)
             }
 

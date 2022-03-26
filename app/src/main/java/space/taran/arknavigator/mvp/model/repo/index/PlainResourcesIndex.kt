@@ -229,7 +229,7 @@ class PlainResourcesIndex internal constructor(
                 .forEach {
                     roomResources.add(Resource.fromMeta(it.value, root, it.key))
                     roomExtra.addAll(
-                        ResourceExtra.fromMetaExtra(it.value.id, it.value.extra)
+                        ResourceExtra.fromMetaExtra(it.value.id, it.value.kind)
                     )
                 }
 

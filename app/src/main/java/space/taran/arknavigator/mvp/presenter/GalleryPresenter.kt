@@ -8,9 +8,8 @@ import kotlinx.coroutines.launch
 import moxy.MvpPresenter
 import moxy.presenterScope
 import space.taran.arknavigator.mvp.model.repo.RootAndFav
-import space.taran.arknavigator.mvp.model.repo.index.MetaExtraTag
 import space.taran.arknavigator.mvp.model.repo.index.ResourceId
-import space.taran.arknavigator.mvp.model.repo.index.ResourceKind
+import space.taran.arknavigator.mvp.model.repo.kind.ResourceKind
 import space.taran.arknavigator.mvp.model.repo.index.ResourceMeta
 import space.taran.arknavigator.mvp.model.repo.index.ResourcesIndex
 import space.taran.arknavigator.mvp.model.repo.index.ResourcesIndexRepo
@@ -105,8 +104,9 @@ class GalleryPresenter(
 
     fun onOpenFabClick() {
         Log.d(GALLERY_SCREEN, "[open_resource] clicked at position $currentPos")
-        if (currentResource.kind == ResourceKind.LINK) {
-            val url = currentResource.extra?.data?.get(MetaExtraTag.URL) ?: return
+        val kind = currentResource.kind
+        if (kind is ResourceKind.Link) {
+            val url = kind.url ?: return
             viewState.openLink(url)
             return
         }
@@ -116,8 +116,9 @@ class GalleryPresenter(
 
     fun onShareFabClick() {
         Log.d(GALLERY_SCREEN, "[share_resource] clicked at position $currentPos")
-        if (currentResource.kind == ResourceKind.LINK) {
-            val url = currentResource.extra?.data?.get(MetaExtraTag.URL) ?: return
+        val kind = currentResource.kind
+        if (kind is ResourceKind.Link) {
+            val url = kind.url ?: return
             viewState.shareLink(url)
             return
         }
